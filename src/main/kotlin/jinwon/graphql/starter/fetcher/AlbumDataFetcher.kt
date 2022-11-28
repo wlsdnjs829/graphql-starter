@@ -5,7 +5,9 @@ import com.netflix.graphql.dgs.DgsData
 import com.netflix.graphql.dgs.DgsDataFetchingEnvironment
 import com.netflix.graphql.dgs.DgsQuery
 import com.netflix.graphql.dgs.InputArgument
+import com.netflix.graphql.dgs.context.DgsContext
 import jinwon.graphql.starter.DgsConstants
+import jinwon.graphql.starter.context.CustomContext
 import jinwon.graphql.starter.types.Album
 
 private const val SPACE = " "
@@ -30,6 +32,9 @@ class AlbumDataFetcher {
 
     @DgsData(parentType = DgsConstants.ALBUM.TYPE_NAME)
     fun artist(dfe: DgsDataFetchingEnvironment): String? {
+        val customContext = DgsContext.Companion.getCustomContext<CustomContext>(dfe)
+        println(customContext.customState)
+
         val album = dfe.getSource<Album>()
         return album.artist
             ?.split(SPACE)
