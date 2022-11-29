@@ -1,4 +1,4 @@
-scalar DateTime
+scalar Timestamp
 
 type Query {
     albums(titleFilter: String): [Album]
@@ -14,5 +14,5 @@ type Album {
 type Review {
     username: String!
     score: Int
-    submitDateTime: DateTime
+    submitDateTime: Timestamp
 }

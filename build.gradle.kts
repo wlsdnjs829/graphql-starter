@@ -24,6 +24,7 @@ dependencies {
     implementation("com.netflix.graphql.dgs.codegen:graphql-dgs-codegen-gradle:5.6.2")
     implementation("com.graphql-java:graphql-java:19.2")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.0")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -37,7 +38,7 @@ tasks.withType<com.netflix.graphql.dgs.codegen.gradle.GenerateJavaTask> {
     generateClient = true
     packageName = "jinwon.graphql.starter"
     typeMapping = mutableMapOf(
-        "DateTime" to "java.time.LocalDateTime",
+        "Timestamp" to "kotlin.Long",
     )
 }
 

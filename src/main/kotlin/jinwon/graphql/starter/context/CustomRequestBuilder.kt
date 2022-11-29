@@ -5,7 +5,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.web.context.request.WebRequest
 import org.springframework.stereotype.Component
 
-@Component
+// @Component
 class CustomRequestBuilder : DgsCustomContextBuilderWithRequest<CustomContext> {
 
     override fun build(

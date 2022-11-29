@@ -11,7 +11,7 @@ import jinwon.graphql.starter.context.CustomContext
 import jinwon.graphql.starter.types.Album
 import jinwon.graphql.starter.types.Review
 import java.time.LocalDateTime
-import java.time.LocalDateTime.*
+import java.time.ZoneId
 
 private const val SPACE = " "
 
@@ -26,15 +26,20 @@ class AlbumDataFetcher {
             Album("Pet Sounds", "The Beach Boys", 12)
         )
 
+        private val NOW = LocalDateTime.now()
+            .atZone(ZoneId.systemDefault())
+            .toInstant()
+            .toEpochMilli()
+
         private val reviews: Map<Int, List<Review>> = hashMapOf(
             20 to listOf(
-                Review("진원", 5, of(2022, 10, 9, 10, 59)),
-                Review("젊은이", 1, of(2022, 11, 9, 10, 23)),
-                Review("호로롱", 3, of(2022, 10, 23, 10, 34)),
+                Review("진원", 5, NOW),
+                Review("젊은이", 1, NOW),
+                Review("호로롱", 3, NOW),
             ),
             10 to listOf(
-                Review("간디", 3, of(2022, 7, 9, 10, 39)),
-                Review("젊은간디", 4, of(2022, 5, 9, 10, 23)),
+                Review("간디", 3, NOW),
+                Review("젊은간디", 4, NOW),
             ),
             12 to listOf()
         )
