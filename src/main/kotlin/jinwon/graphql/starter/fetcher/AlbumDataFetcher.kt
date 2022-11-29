@@ -1,17 +1,13 @@
 package jinwon.graphql.starter.fetcher
 
-import com.netflix.graphql.dgs.DgsComponent
-import com.netflix.graphql.dgs.DgsData
-import com.netflix.graphql.dgs.DgsDataFetchingEnvironment
-import com.netflix.graphql.dgs.DgsQuery
-import com.netflix.graphql.dgs.InputArgument
+import com.netflix.graphql.dgs.*
 import com.netflix.graphql.dgs.context.DgsContext
 import jinwon.graphql.starter.DgsConstants
 import jinwon.graphql.starter.context.CustomContext
 import jinwon.graphql.starter.types.Album
 import jinwon.graphql.starter.types.Review
-import java.time.LocalDateTime
-import java.time.ZoneId
+import org.dataloader.DataLoader
+import java.util.concurrent.CompletableFuture
 
 private const val SPACE = " "
 
@@ -24,24 +20,6 @@ class AlbumDataFetcher {
             Album("Hello", "Andy Dec", 20),
             Album("What's Going On", "Marvin Gaye", 10),
             Album("Pet Sounds", "The Beach Boys", 12)
-        )
-
-        private val NOW = LocalDateTime.now()
-            .atZone(ZoneId.systemDefault())
-            .toInstant()
-            .toEpochMilli()
-
-        private val reviews: Map<Int, List<Review>> = hashMapOf(
-            20 to listOf(
-                Review("진원", 5, NOW),
-                Review("젊은이", 1, NOW),
-                Review("호로롱", 3, NOW),
-            ),
-            10 to listOf(
-                Review("간디", 3, NOW),
-                Review("젊은간디", 4, NOW),
-            ),
-            12 to listOf()
         )
     }
 
@@ -64,12 +42,12 @@ class AlbumDataFetcher {
     }
 
     @DgsData(parentType = DgsConstants.ALBUM.TYPE_NAME)
-    fun reviews(dfe: DgsDataFetchingEnvironment): List<Review>? {
-        val album = dfe.getSource<Album>()
-        return album.recordNo
-            .run {
-                reviews[this]
-            }
+    fun reviews(dfe: DgsDataFetchingEnvironment): CompletableFuture<List<Review>?> {
+        val albumDataLoader: DataLoader<Int, List<Review>> = dfe.getDataLoader(AlbumDataLoader::class.java)
+
+        val album: Album = dfe.getSource()
+
+        return albumDataLoader.load(album.recordNo)
     }
 
 }
