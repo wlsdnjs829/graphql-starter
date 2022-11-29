@@ -36,6 +36,9 @@ dependencies {
 tasks.withType<com.netflix.graphql.dgs.codegen.gradle.GenerateJavaTask> {
     generateClient = true
     packageName = "jinwon.graphql.starter"
+    typeMapping = mutableMapOf(
+        "DataTime" to "java.time.LocalDateTime",
+    )
 }
 
 tasks.withType<KotlinCompile> {

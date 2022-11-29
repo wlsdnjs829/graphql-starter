@@ -41,10 +41,6 @@ class AlbumDataFetcher {
             ?.first()
     }
 
-    @DgsData.List(
-        DgsData(parentType = DgsConstants.ALBUM.TYPE_NAME, field = DgsConstants.ALBUM.RecordNo),
-        DgsData(parentType = DgsConstants.ALBUM.TYPE_NAME, field = DgsConstants.ALBUM.Title)
-    )
-    fun otherData(dfe: DgsDataFetchingEnvironment): Any? = 1
+
 
 }
