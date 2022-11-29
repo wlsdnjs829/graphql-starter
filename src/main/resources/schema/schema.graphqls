@@ -1,4 +1,4 @@
-scalar DataTime
+scalar DateTime
 
 type Query {
     albums(titleFilter: String): [Album]
@@ -8,4 +8,11 @@ type Album {
     title: String
     artist: String
     recordNo: Int
+    reviews: [Review]
+}
+
+type Review {
+    username: String!
+    score: Int
+    submitDateTime: DateTime
 }
