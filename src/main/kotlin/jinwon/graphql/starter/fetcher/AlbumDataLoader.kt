@@ -23,13 +23,13 @@ class AlbumDataLoader: MappedBatchLoader<Int, List<Review>> {
 
         private val reviews: Map<Int, List<Review>> = hashMapOf(
             20 to listOf(
-                Review("진원", 5, NOW),
-                Review("젊은이", 1, NOW),
-                Review("호로롱", 3, NOW),
+                Review("진원", 5, LocalDateTime.now()),
+                Review("젊은이", 1, LocalDateTime.now()),
+                Review("호로롱", 3, LocalDateTime.now()),
             ),
             10 to listOf(
-                Review("간디", 3, NOW),
-                Review("젊은간디", 4, NOW),
+                Review("간디", 3, LocalDateTime.now()),
+                Review("젊은간디", 4, LocalDateTime.now()),
             ),
             12 to listOf()
         )

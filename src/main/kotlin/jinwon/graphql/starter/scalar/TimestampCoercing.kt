@@ -6,28 +6,29 @@ import graphql.schema.Coercing
 import graphql.schema.CoercingParseLiteralException
 import graphql.schema.CoercingParseValueException
 import graphql.schema.CoercingSerializeException
+import java.time.LocalDateTime
 
 @DgsScalar(name = "Timestamp")
-internal class TimestampCoercing : Coercing<Long, Any> {
-    override fun serialize(dataFetcherResult: Any): Long {
+internal class TimestampCoercing : Coercing<LocalDateTime, Any> {
+    override fun serialize(dataFetcherResult: Any): LocalDateTime {
         return try {
-            dataFetcherResult as Long
+            dataFetcherResult as LocalDateTime
         } catch (e: ClassCastException) {
             throw CoercingSerializeException("dataFetcherResult is not type of LocalDateTime", e)
         }
     }
 
-    override fun parseValue(input: Any): Long {
+    override fun parseValue(input: Any): LocalDateTime {
         return try {
-            input as Long
+            input as LocalDateTime
         } catch (e: ClassCastException) {
             throw CoercingParseValueException("input(should be timestamp) value is not type of LocalDateTime")
         }
     }
 
-    override fun parseLiteral(input: Any): Long {
+    override fun parseLiteral(input: Any): LocalDateTime {
         return try {
-            (input as IntValue).value.toLong()
+            input as LocalDateTime
         } catch (e: ClassCastException) {
             throw CoercingParseLiteralException("input(should be timestamp) value is not type of LocalDateTime")
         }
