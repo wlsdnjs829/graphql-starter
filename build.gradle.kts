@@ -31,14 +31,14 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.graphql:spring-graphql-test")
+//    testImplementation("org.springframework.graphql:spring-graphql-test")
 }
 
 tasks.withType<com.netflix.graphql.dgs.codegen.gradle.GenerateJavaTask> {
     generateClient = true
     packageName = "jinwon.graphql.starter"
     typeMapping = mutableMapOf(
-        "Timestamp" to "kotlin.Long",
+        "Timestamp" to "java.time.LocalDateTime",
     )
 }
 
